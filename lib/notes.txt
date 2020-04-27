@@ -1,0 +1,219 @@
+void createRecord() async {
+    await databaseReference.collection("books")
+        .document("1")
+        .setData({
+          'title': 'Mastering Flutter',
+          'description': 'Programming Guide for Dart'
+        });
+
+    DocumentReference ref = await databaseReference.collection("books")
+        .add({
+          'title': 'Flutter in Action',
+          'description': 'Complete Programming Guide to learn Flutter'
+        });
+    print(ref.documentID);
+  }
+
+  void getData() {
+    databaseReference
+        .collection("books")
+        .getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) => print('${f.data}}'));
+    });
+  }
+
+  void updateData() {
+    try {
+      databaseReference
+          .collection('books')
+          .document('1')
+          .updateData({'description': 'Head First Flutter'});
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void deleteData() {
+    try {
+      databaseReference
+          .collection('books')
+          .document('1')
+          .delete();
+    } catch (e) {
+      print(e.toString());
+    }
+
+    flutter run -t [PATH] 
+    ex. lib/pages/preferences/userpref.dart 
+    this command runs the specific flutter page
+    https://medium.com/flutter-community/flutter-layout-cheat-sheet-5363348d037e
+    compiled list of different layouts
+    https://www.linkedin.com/pulse/firebase-authentication-flutter-udara-abeythilake
+    FirebaseAUTH methods and examples
+    https://stackoverflow.com/questions/54012380/flutter-firestore-where-clause-using-map
+    -- Using a map in a WHERE cluase 
+
+    height: 600,// this is essential to make the listview work, we have (two instances of) infinite vertical height otherwise (crash).
+                          child: ListView(
+                          children: _labels.keys.map((String key){
+                            return new CheckboxListTile(
+                              title: new Text(key),
+                              value: _labels[key],
+                              
+                              onChanged: (bool value){
+                                setState(() {
+                                  _labels[key] = value;
+                                });
+                              });
+                          }).toList(),
+
+
+  //builds the listtile unless there are children
+  Widget _buildTiles(Entry root) {
+    if (root.children.isEmpty) return ListTile(title: Text(root.title));
+    return ExpansionTile(
+      key: PageStorageKey<Entry>(root),
+      title: Text(root.title),
+      children: root.children.map(_buildTiles).toList(),
+    );
+  }
+
+
+
+
+
+
+
+                          // //??????????????????????????????????????????????????
+                          From home page trying to animate routes
+              // //??????????????????????????????????????????????????
+              // transitionEffect.createCustomEffect(handle: (Curve curve,
+              //     Animation<double> animation,
+              //     Animation<double> secondaryAnimation,
+              //     Widget child) {
+              //   return new SlideTransition(
+              //     position: new Tween<Offset>(
+              //       begin: const Offset(1.0, 0.0),
+              //       end: const Offset(0.0, 0.0),
+              //     ).animate(CurvedAnimation(parent: animation, curve: curve)),
+              //     child: child,
+              //   );
+              // }),
+              // //??????????????????????????????????????????????????
+              // //??????????????????????????????????????????????????
+              // PageRouteBuilder(
+              //     pageBuilder: (BuildContext context,
+              //         Animation<double> animation,
+              //         Animation<double> secondaryAnimation) {
+              //           Navigator.of(context).push(PageTransition(type: PageTransitionType.slideInLeft, child: RecipeDe()));
+              //         },
+              //     transitionDuration: const Duration(milliseconds: 300),
+              //     transitionsBuilder: (BuildContext context,
+              //         Animation<double> animation,
+              //         Animation<double> secondaryAnimation,
+              //         Widget child) {
+              //       return effectMap[PageTransitionType.slideInLeft](
+              //           Curves.linear, animation, secondaryAnimation, child);
+              //     }),
+
+
+
+              Search by partial string 
+              
+              https://api.dart.dev/stable/2.7.1/dart-core/String/contains.html
+
+----- test page with Image
+
+import 'dart:typed_data';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+
+
+class Testing extends StatefulWidget {
+  @override
+  _TestingState createState() => _TestingState();
+}
+
+class _TestingState extends State<Testing> {
+
+    final FirebaseStorage storage = FirebaseStorage(
+      app: Firestore.instance.app,
+      storageBucket: 'gs://pantry-chef-cba40.appspot.com');
+
+  Uint8List imageBytes;
+  String errorMsg;
+
+  _TestingState() {
+      storage.ref().child('recipes/image_picker1606192494060261280.jpg}').getData(10000000).then((data) =>
+                setState(() {
+                  imageBytes = data;
+                })
+        ).catchError((e) =>
+                setState(() {
+                  errorMsg = e.error;
+                })
+        );
+  }
+
+   @override
+  Widget build(BuildContext context) {
+    var img = imageBytes != null ? Image.memory(
+        imageBytes,
+        fit: BoxFit.cover,
+      ) : Text(errorMsg != null ? errorMsg : "Loading...");
+        print(img);
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Testing'),
+        ),
+        body: new ListView(
+          children: <Widget>[
+            img,
+          ],
+        ));
+  }
+}
+
+// class Testing extends StatelessWidget {
+
+//   List<String> list = ['one','two','three'];
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(
+//           'Testing page',
+//           style: TextStyle(
+//             fontWeight: FontWeight.w900,
+//             fontSize: 30.0,
+//           ),
+//         ),
+//       ),
+//       body: new Row(
+//       children: <Widget>[
+//         Expanded(
+//           child: SizedBox(
+//             height: 200.0,
+//             child: new ListView.builder(
+//               itemCount: list.length,
+//               itemBuilder: (BuildContext ctxt, int index) {
+//                 return new Text(list[index]);
+//               },
+//             ),
+//           ),
+//         ),
+//         new IconButton(
+//           icon: Icon(Icons.add_circle),
+//           onPressed: () {
+//             list.add('value - ' + list.length.toString());
+//           },
+//         ),
+//       ],
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//     )
+//     );
+//   }
+// }

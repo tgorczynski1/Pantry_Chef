@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "926150857244",
+    "firebase_url": "https://pantry-chef-cba40.firebaseio.com",
+    "project_id": "pantry-chef-cba40",
+    "storage_bucket": "pantry-chef-cba40.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926150857244:android:825146b7c70992599f05d9",
+        "android_client_info": {
+          "package_name": "com.naitdev.pantry_chef"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926150857244-sk0vhfffb58aohs5sarhtia08r66hapj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaE7R9sot1lCrNazY2tUuIuB0L5tkOwfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926150857244-sk0vhfffb58aohs5sarhtia08r66hapj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
